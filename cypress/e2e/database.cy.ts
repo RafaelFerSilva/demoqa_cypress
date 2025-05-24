@@ -1,4 +1,13 @@
+// read README.md for execution instructions
 describe('Test DB', () => {
+  before(() => {
+    cy.dbConnect();
+  });
+
+  after(() => {
+    cy.dbClose();
+  });
+
   it('executa script SQL', () => {
     cy.dbExecuteScript('cypress/sql/test.sql').then((users) => {
       expect(users).to.be.an('array');

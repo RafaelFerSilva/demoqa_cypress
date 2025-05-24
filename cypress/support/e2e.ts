@@ -22,11 +22,3 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   // Retorne false para evitar que o Cypress falhe o teste
   return false;
 });
-
-before(() => {
-  cy.dbConnect();
-});
-
-after(() => {
-  cy.dbClose();
-});

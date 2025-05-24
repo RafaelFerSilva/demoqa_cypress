@@ -5,10 +5,10 @@ describe('Home Page Test Suite', () => {
 
   before(() => {
     homePage = new HomePage()
+    homePage.visitHomePage()
   })
 
-  it('Home page test', () => {
-    homePage.visitHomePage()
+  it('The home page must be accessed when we access the url of the DEMOQA website', () => {
     homePage.validateHomePageLoaded()
   })
 })
