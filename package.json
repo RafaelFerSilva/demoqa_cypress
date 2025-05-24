@@ -1,0 +1,29 @@
+{
+  "name": "cypress-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "open": "cypress open",
+    "test": "rm -rf allure-results && cypress run --env ENV=uat,allure=true",
+    "test:rc": "rm -rf allure-results && cypress run --env ENV=rc,allure=true",
+    "test:prod": "rm -rf allure-results && cypress run --env ENV=prod,allure=true",
+    "report": "allure generate --clean allure-results -o allure-report && allure open",
+    "report:cy": "allure generate --clean allure-results -o allure-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^9.8.0",
+    "@shelex/cypress-allure-plugin": "^2.41.1",
+    "allure-cypress": "^3.2.2",
+    "cypress": "^14.3.3",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "cypress-plugin-api": "^2.11.2",
+    "dotenv": "^16.5.0",
+    "mysql2": "^3.14.1"
+  }
+}

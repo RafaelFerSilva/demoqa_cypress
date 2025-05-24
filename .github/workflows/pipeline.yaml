@@ -1,0 +1,124 @@
+name: Cypress Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  cypress-run:
+    permissions:
+        actions: read
+        checks: write
+        contents: read
+        pull-requests: write
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+          - "3306:3306"
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: testdb
+          MYSQL_USER: testuser
+          MYSQL_PASSWORD: testpassword
+        options: >-
+          --health-cmd="mysqladmin ping --host=localhost --user=root --password=rootpassword"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install MySQL Client & Python Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mysql-client
+          python -m pip install --upgrade pip
+          pip install mysql-connector-python
+          pip install python-dotenv
+
+      - name: Wait for MySQL and Initialize Database
+        run: python init_db.py
+
+      - name: Run Cypress tests (Allure)
+        run: npm run test
+
+      - name: Install Allure commandline
+        run: npm install -g allure-commandline --force
+
+      - name: Generate Allure report
+        run: npm run report:cy
+
+      - name: Upload Allure Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
+          retention-days: 3
+
+  
+  deploy:
+    needs: cypress-run
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      actions: read
+      checks: write
+      contents: read
+      pull-requests: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    if: always()
+
+    steps:
+    - name: Download Allure results
+      uses: actions/download-artifact@v4
+      with:
+        name: allure-results
+        path: ./allure-results
+
+    - name: Generate Allure Report
+      uses: simple-elf/allure-report-action@v1
+      with:
+        allure_results: ./allure-results
+        allure_report: ./allure-report
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: './allure-report'
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
