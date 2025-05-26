@@ -1,20 +1,33 @@
 import { AllureStep } from '../utils/allure-step.decorator';
 
 export default class HomePage {
+  header_img_selector = 'header img[src="/images/Toolsqa.jpg"]'
+  home_card_selector = 'div.card h5'
 
   @AllureStep('Visit Home Page')
   visitHomePage() {
     cy.visit('/');
+    this.validateHomePageLoaded()
   }
 
   @AllureStep()
   validateHomePageCard(title: string): void {
-    cy.get('div.card h5').should('be.visible').contains(title);
+    cy.get(this.home_card_selector, { timeout: 10000 }).should('be.visible').contains(title);
+  }
+
+  @AllureStep()
+  clickOnHomeCard(title: string): void {
+    cy.get(this.home_card_selector, { timeout: 10000 }).should('be.visible').contains(title).click();
   }
 
   @AllureStep('Validate Home Page Header Image')
   validateHomePageHeaderImg() {
-    cy.get('header img[src="/images/Toolsqa.jpg"]').should('be.visible');
+    cy.get(this.header_img_selector, { timeout: 10000 }).should('be.visible');
+  }
+
+  @AllureStep()
+  clickOnHomePageHeaderImg(): void {
+    cy.get(this.header_img_selector, { timeout: 10000 }).click();
   }
 
   @AllureStep('Validate Home Page Loaded')

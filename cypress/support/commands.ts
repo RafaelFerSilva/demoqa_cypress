@@ -24,7 +24,6 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-
 Cypress.Commands.add('dbConnect', () => {
   cy.allure().startStep('Connect to Database');
   cy.task('dbConnect').then((result: any) => {
@@ -68,3 +67,12 @@ Cypress.Commands.add('dbReplaceAndExecute', (scriptPath: string, values: any[]) 
   });
 });
 
+Cypress.Commands.add('validateUrl', (expectedUrl: string) => {
+  cy.allure().startStep('Validate URL').endStep();
+  cy.url().should('eq', expectedUrl);
+});
+
+Cypress.Commands.add('validateUrlContains', (partialUrl: string) => {
+  cy.allure().startStep('validate Url Contains').endStep();
+  cy.url().should('include', partialUrl);
+});
