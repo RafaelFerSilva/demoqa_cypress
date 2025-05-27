@@ -16,8 +16,9 @@ export default class HomePage {
   }
 
   @AllureStep()
-  clickOnHomeCard(title: string): void {
+  clickOnHomeCard(title: string, url_resource: string): void {
     cy.get(this.home_card_selector, { timeout: 10000 }).should('be.visible').contains(title).click();
+    cy.validateUrlContains(url_resource);
   }
 
   @AllureStep('Validate Home Page Header Image')

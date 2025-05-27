@@ -76,3 +76,9 @@ Cypress.Commands.add('validateUrlContains', (partialUrl: string) => {
   cy.allure().startStep('validate Url Contains').endStep();
   cy.url().should('include', partialUrl);
 });
+
+Cypress.Commands.add('getByExactText', (selector, text) => {
+  return cy.get(selector).filter(`:contains("${text}")`).filter(function() {
+    return Cypress.$(this).text() === text;
+  });
+});

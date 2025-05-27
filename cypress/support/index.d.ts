@@ -7,5 +7,6 @@ declare namespace Cypress {
     returnAllUsers(): Chainable<any[]>;
     validateUrl(expectedUrl: string): Chainable<void>;
     validateUrlContains(partialUrl: string): Chainable<void>;
+    getByExactText(selector: string, text: string): Chainable<JQuery<HTMLElement>>;
   }
 }

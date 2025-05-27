@@ -24,8 +24,7 @@ describe('Home Page Test Suite', () => {
     ];
   
     cardsAndUrls.forEach(({ title, url }) => {
-      homePage.clickOnHomeCard(title);
-      cy.validateUrlContains(url);
+      homePage.clickOnHomeCard(title, url);
       homePage.clickOnHomePageHeaderImg()
       homePage.validateHomePageLoaded()
     });
