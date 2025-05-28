@@ -25,4 +25,9 @@ describe('Checkbox Test Suite', () => {
     checkboxPage.clickOnCheckBox('Home')
     checkboxPage.validateHomeSubCheckBoxesVisibility()
   });
+
+  it('The name of all checkboxes must be displayed when selecting the home checkbox', () => {
+    checkboxPage.selectCheckBox('Home')
+    checkboxPage.areAllCheckBoxesDisplayedInResults()
+  })
 })

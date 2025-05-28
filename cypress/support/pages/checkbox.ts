@@ -8,7 +8,7 @@ export default class CheckBoxPage {
   CHECK_BOX_TOGGLE_BUTTON = `${this.CHECK_BOX_ITEM}//button`;
   CHECKBOX_LABEL = '[for=tree-node-$$]';
   CHECKBOX_INPUT = '[id=tree-node-$$]';
-  CHECKBOX_TEXT_RESULT = '#result > span.text-success >> text=$$';
+  CHECKBOX_TEXT_RESULT = '#result > span.text-success';
   CHECKBOX_TEXT_RESULT_LIST = ['home', 'desktop', 'notes', 'commands', 'documents', 'workspace', 'react', 'angular', 'veu', 'office'];
 
   @AllureStep('Click on the check box toggle button')
@@ -38,7 +38,7 @@ export default class CheckBoxPage {
 
   @AllureStep('Select the check box')
   selectCheckBox(check_box: string) {
-    cy.xpath(this.CHECKBOX_LABEL.replace('$$', this.CHECK_BOX_ITEMS[check_box])).check({ force: true });
+    cy.get(this.CHECKBOX_LABEL.replace('$$', this.CHECK_BOX_ITEMS[check_box])).click();
   }
 
   @AllureStep('Validate if the check box ${check_box} is selected')
@@ -48,13 +48,13 @@ export default class CheckBoxPage {
 
   @AllureStep('Validate whether a selected checkbox is being displayed in the results session')
   isCheckBoxDisplayedInResults(check_box: string) {
-    cy.xpath(this.CHECKBOX_TEXT_RESULT.replace('$$', check_box)).should('be.visible');
+    cy.get(this.CHECKBOX_TEXT_RESULT).contains(check_box).should('be.visible');
   }
 
   @AllureStep('Validate whether a list of all checkboxes are being displayed in the results section')
   areAllCheckBoxesDisplayedInResults() {
     this.CHECKBOX_TEXT_RESULT_LIST.forEach((checkBox) => {
-      cy.xpath(this.CHECKBOX_TEXT_RESULT.replace('$$', checkBox)).should('be.visible');
+      this.isCheckBoxDisplayedInResults(checkBox);
     });
   }
 
@@ -72,7 +72,7 @@ export default class CheckBoxPage {
 
   @AllureStep('Uncheck the checkbox')
   uncheckCheckBox(check_box: string) {
-    cy.get(this.CHECKBOX_LABEL.replace('$$', this.CHECK_BOX_ITEMS[check_box])).uncheck({ force: true });
+    cy.get(this.CHECKBOX_LABEL.replace('$$', this.CHECK_BOX_ITEMS[check_box])).click();
   }
 
   @AllureStep('Click to expand the check box group')
