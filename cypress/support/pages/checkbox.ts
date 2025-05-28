@@ -9,7 +9,7 @@ export default class CheckBoxPage {
   CHECKBOX_LABEL = '[for=tree-node-$$]';
   CHECKBOX_INPUT = '[id=tree-node-$$]';
   CHECKBOX_TEXT_RESULT = '#result > span.text-success';
-  CHECKBOX_TEXT_RESULT_LIST = ['home', 'desktop', 'notes', 'commands', 'documents', 'workspace', 'react', 'angular', 'veu', 'office'];
+  CHECKBOX_TEXT_RESULT_LIST = ['home', 'desktop', 'notes', 'commands', 'documents', 'workspace', 'react', 'angular', 'veu', 'office', 'public', 'private', 'classified', 'general', 'downloads', 'wordFile', 'excelFile'];
 
   @AllureStep('Click on the check box toggle button')
   clickOnCheckBox(item: string) {
@@ -61,7 +61,7 @@ export default class CheckBoxPage {
   @AllureStep('Validate the checkbox items being displayed in the results section')
   isCheckBoxsDisplayedInResults(check_boxs: string[]) {
     check_boxs.forEach((check_box) => {
-        this.isCheckBoxDisplayedInResults(check_box);
+      this.isCheckBoxDisplayedInResults(check_box);
     });
   }
 

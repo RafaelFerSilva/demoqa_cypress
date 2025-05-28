@@ -22,12 +22,12 @@ describe('Checkbox Test Suite', () => {
   })
 
   it('The Desktop, Documents and Downloads check boxes must be displayed when expanding the Home check box', () => {
-    checkboxPage.clickOnCheckBox('Home')
+    checkboxPage.expandCheckBoxGroup('Home')
     checkboxPage.validateHomeSubCheckBoxesVisibility()
   });
 
   it('The name of all checkboxes must be displayed when selecting the home checkbox', () => {
-    checkboxPage.selectCheckBox('Home')
+    checkboxPage.selectCheckBoxItem('Home')
     checkboxPage.areAllCheckBoxesDisplayedInResults()
   })
 })
