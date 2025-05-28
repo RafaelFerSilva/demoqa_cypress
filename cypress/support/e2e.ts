@@ -17,6 +17,7 @@
 import './commands'
 import '@shelex/cypress-allure-plugin';
 import 'cypress-plugin-api'
+import 'cypress-xpath'
 
 Cypress.on('uncaught:exception', (err, runnable) => {
   // Retorne false para evitar que o Cypress falhe o teste

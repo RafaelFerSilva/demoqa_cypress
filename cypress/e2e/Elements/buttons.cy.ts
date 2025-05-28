@@ -2,7 +2,7 @@ import HomePage from '../../support/pages/HomePage'
 import SideMenu from '../../support/pages/side_menu'
 import ButtonPage from '../../support/pages/buttonPage'
 
-describe('Elements Test Suite', () => {
+describe('Buttons Test Suite', () => {
   let homePage: HomePage
   let sideMenu: SideMenu
   let buttonPage: ButtonPage
