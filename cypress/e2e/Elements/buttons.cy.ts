@@ -1,6 +1,6 @@
 import HomePage from '../../support/pages/HomePage'
-import SideMenu from '../../support/pages/side_menu'
-import ButtonPage from '../../support/pages/buttonPage'
+import SideMenu from '../../support/pages/SideMenu'
+import ButtonPage from '../../support/pages/ButtonPage'
 
 describe('Buttons Test Suite', () => {
   let homePage: HomePage

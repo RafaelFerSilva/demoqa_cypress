@@ -1,6 +1,6 @@
 import HomePage from '../../support/pages/HomePage'
-import SideMenu from '../../support/pages/side_menu'
-import CheckboxPage from '../../support/pages/checkbox'
+import SideMenu from '../../support/pages/SideMenu'
+import CheckboxPage from '../../support/pages/CheckBoxPage'
 
 describe('Checkbox Test Suite', () => {
   let homePage: HomePage
@@ -29,5 +29,11 @@ describe('Checkbox Test Suite', () => {
   it('The name of all checkboxes must be displayed when selecting the home checkbox', () => {
     checkboxPage.selectCheckBoxItem('Home')
     checkboxPage.areAllCheckBoxesDisplayedInResults()
+  })
+
+  it('The name of the check boxes related to the Downloads check box must be displayed in the result section when we select Downloads', () => {
+    checkboxPage.expandCheckBoxGroup('Home')
+    checkboxPage.selectCheckBoxItem('Downloads')
+    checkboxPage.isCheckBoxsDisplayedInResults(['downloads','wordFile','excelFile'])
   })
 })
