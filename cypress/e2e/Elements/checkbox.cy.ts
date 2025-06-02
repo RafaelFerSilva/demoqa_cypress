@@ -42,4 +42,10 @@ describe('Checkbox Test Suite', () => {
     checkboxPage.selectCheckBoxItem('Desktop')
     checkboxPage.isCheckBoxsDisplayedInResults(['desktop', 'notes', 'commands'])
   })
+
+  it('The name of the check boxes related to the Documents check box must be displayed in the result section when we select Documents', () => {
+    checkboxPage.expandCheckBoxGroup('Home')
+    checkboxPage.selectCheckBoxItem('Documents')
+    checkboxPage.isCheckBoxsDisplayedInResults(['documents', 'workspace', 'react', 'angular', 'veu', 'office', 'public', 'private', 'classified', 'general'])
+  })
 })
