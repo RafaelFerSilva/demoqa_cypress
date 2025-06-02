@@ -18,56 +18,56 @@ export default class LinksPage {
 
   @AllureStep('Check the subtitle of the links screen')
   checkSubtitle(subtitle: string) {
-      cy.get(this.LINKS_H5_TITLE.replace('$$', subtitle)).should('have.text', subtitle)
+    cy.get(this.LINKS_H5_TITLE.replace('$$', subtitle)).should('have.text', subtitle)
   }
 
   @AllureStep('Check if the link is visible on the screen')
   checkLinkVisibility(link: string) {
-      cy.get(this.LINKS[link]).should('be.visible')
+    cy.get(this.LINKS[link]).should('be.visible')
   }
-  
+
   @AllureStep('Click on link')
   clickOnLink(link: string) {
-      cy.get(this.LINKS[link]).click()
+    cy.get(this.LINKS[link]).click()
   }
 
   @AllureStep('Validate the response text of the API link')
   validateApiResponse(link: string) {
-      cy.xpath(this.LINK_RESPONSE_TEXT.replace('$$', this.API_LINK_RESPONSE[link]).replace('$$', link))
-        .should('be.visible')
+    cy.xpath(this.LINK_RESPONSE_TEXT.replace('$$', this.API_LINK_RESPONSE[link]).replace('$$', link))
+      .should('be.visible')
   }
 
   @AllureStep('Validate if the links section to open a new tab is visible')
   validateLinksSectionVisibility() {
-      cy.get(this.LINKS_H5_TITLE.replace('$$', 'Following links will open new tab')).should('have.text', 'Following links will open new tab')
-      this.checkLinkVisibility( 'Home' )
-      this.checkLinkVisibility( 'Home Dinamico' )
+    cy.get(this.LINKS_H5_TITLE.replace('$$', 'Following links will open new tab')).should('have.text', 'Following links will open new tab')
+    this.checkLinkVisibility('Home')
+    this.checkLinkVisibility('Home Dinamico')
   }
 
   @AllureStep('Validate if the links section to send an API call is visible')
   validateApiLinksSectionVisibility() {
-      cy.get(this.LINKS_H5_TITLE.replace('$$', 'Following links will send an api call')).should('have.text', 'Following links will send an api call')
-      this.checkLinkVisibility('Created')
-      this.checkLinkVisibility('No Content')
-      this.checkLinkVisibility('Moved')
-      this.checkLinkVisibility('Bad Request')
-      this.checkLinkVisibility('Unauthorized')
-      this.checkLinkVisibility('Forbidden')
-      this.checkLinkVisibility('Not Found')
+    cy.get(this.LINKS_H5_TITLE.replace('$$', 'Following links will send an api call')).should('have.text', 'Following links will send an api call')
+    this.checkLinkVisibility('Created')
+    this.checkLinkVisibility('No Content')
+    this.checkLinkVisibility('Moved')
+    this.checkLinkVisibility('Bad Request')
+    this.checkLinkVisibility('Unauthorized')
+    this.checkLinkVisibility('Forbidden')
+    this.checkLinkVisibility('Not Found')
   }
 
   @AllureStep('Click on the link to send a call to the API')
   clickOnLinkToSendApiCall(link: string) {
-      this.clickOnLink(link)
-      if (link == 'Moved') {
-          this.validateApiResponse('Moved Permanently')
-      } else {
-          this.validateApiResponse(link)
-      }
+    this.clickOnLink(link)
+    if (link == 'Moved') {
+      this.validateApiResponse('Moved Permanently')
+    } else {
+      this.validateApiResponse(link)
+    }
   }
 
   @AllureStep('Access the new tab by clicking on the link')
   accessNewTab(link: string): void {
-      cy.get(this.LINKS[link]).invoke('removeAttr', 'target').click();
+    cy.get(this.LINKS[link]).invoke('removeAttr', 'target').click();
   }
 }

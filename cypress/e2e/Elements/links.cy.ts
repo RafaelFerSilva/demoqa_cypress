@@ -32,4 +32,14 @@ describe('Links Page Tests', () => {
     linksPage.clickOnLinkToSendApiCall('Not Found');
   })
 
+  it('Must be redirected to the home page when clicking on the simple link', () => {
+    linksPage.accessNewTab('Home');
+    homePage.validateHomePageLoaded()
+  })
+
+  it('Must be redirected to the home page when clicking on the dinamic link', () => {
+    linksPage.accessNewTab('Home Dinamico');
+    homePage.validateHomePageLoaded();
+  })
+
 });
