@@ -34,6 +34,12 @@ describe('Checkbox Test Suite', () => {
   it('The name of the check boxes related to the Downloads check box must be displayed in the result section when we select Downloads', () => {
     checkboxPage.expandCheckBoxGroup('Home')
     checkboxPage.selectCheckBoxItem('Downloads')
-    checkboxPage.isCheckBoxsDisplayedInResults(['downloads','wordFile','excelFile'])
+    checkboxPage.isCheckBoxsDisplayedInResults(['downloads', 'wordFile', 'excelFile'])
+  })
+
+  it('The name of the check boxes related to the Desktop check box must be displayed in the result section when we select Desktop', () => {
+    checkboxPage.expandCheckBoxGroup('Home')
+    checkboxPage.selectCheckBoxItem('Desktop')
+    checkboxPage.isCheckBoxsDisplayedInResults(['desktop', 'notes', 'commands'])
   })
 })
